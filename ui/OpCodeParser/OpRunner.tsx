@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import clsx from 'clsx'
+import LanguageExecutor from './LanguageExecutor'
 import { useLessonContext, ScratchDnD } from 'ui'
-import { LessonView, SuccessNumbers, MainState, OpRunnerTypes, StackType, State, T } from 'types'
+import { SuccessNumbers } from 'ui/common/StatusBar'
+import { LessonView } from 'types'
+import { MainState, OpRunnerTypes, StackType, State, T } from './runnerTypes'
 import { ArcherElement } from 'react-archer'
 import { RelationType } from 'react-archer/lib/types'
 import { useArrows } from 'state/ArrowsContext'
@@ -9,7 +12,6 @@ import { useHorizontalScroll, useLang, useTranslations } from 'hooks'
 import { sleep } from 'utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import OpCodeRunner from './Runner'
-import LanguageExecutor from './LanguageExecutor'
 import Icon from 'shared/Icon'
 import { Loader } from 'shared'
 
@@ -382,7 +384,7 @@ const OpRunner = ({
       <div className="flex h-[calc(100dvh-56px-48px)] grow flex-col text-white md:h-[calc(100dvh-56px)]">
         <div
           className={clsx(
-            'flex h-[calc(100dvh-48px-178px-56px)] flex-col gap-1 border-b border-b-white/25 md:h-[calc(100dvh-178px-30dvh-56px)]',
+            'flex h-[calc(100dvh-48px-156px-56px)] flex-col border-b border-b-white/25 md:h-[calc(100dvh-156px-32.5dvh-56px)]',
             {
               'hidden md:flex': activeView === LessonView.Execute || !isActive,
               flex: isActive,
@@ -397,13 +399,13 @@ const OpRunner = ({
         </div>
 
         <div
-          className={clsx('flex-col border-b border-b-white/25', {
+          className={clsx('flex-col', {
             'hidden md:flex': activeView === LessonView.Execute || !isActive,
             flex: isActive,
           })}
         >
-          <div className="flex flex-col border-b border-b-white/25 px-5 py-4">
-            <p className="font-space-mono text-lg font-bold capitalize">
+          <div className="flex flex-col border-b border-b-white/25 px-5 py-[15px]">
+            <p className="font-space-mono text-[15px] font-bold">
               Initial stack
             </p>
             <input
@@ -411,21 +413,21 @@ const OpRunner = ({
               onChange={handleInitialStackChange}
               value={initialStack}
               ref={inputRef}
-              className="flex-grow border-none bg-transparent font-space-mono text-lg uppercase focus:outline-none"
+              className="h-[25px] flex-grow border-none bg-transparent font-space-mono text-[15px] uppercase placeholder:text-white/50 focus:outline-none"
               type="text"
               placeholder="0xA 10..."
             />
           </div>
 
-          <div className="flex flex-col px-5 py-4">
-            <p className="font-space-mono text-lg font-bold capitalize">
-              Next Block Height
+          <div className="flex flex-col border-b border-b-white/25 px-5 py-[15px]">
+            <p className="font-space-mono text-[15px] font-bold">
+              Next block height
             </p>
             <input
               title="Enter any number above 1."
               onChange={handleHeightChange}
               value={height}
-              className="flex-grow border-none bg-transparent font-space-mono text-lg [appearance:textfield] focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="h-[25px] flex-grow border-none bg-transparent font-space-mono text-[15px] [appearance:textfield] placeholder:text-white/50 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               placeholder="6930001"
               type="number"
               min="1"
@@ -434,24 +436,24 @@ const OpRunner = ({
         </div>
         <div
           className={clsx(
-            'h-full min-h-[calc(25dvh)] flex-col bg-black/10 px-5',
+            'h-full min-h-[calc(25dvh)] flex-col gap-y-2.5 bg-black/10 px-5 py-[15px]',
             {
               'hidden md:flex': activeView !== LessonView.Execute,
               flex: activeView === LessonView.Execute,
             }
           )}
         >
-          <div className="flex w-full flex-row justify-between pt-3">
-            <p className="font-mono text-lg font-bold">Execution stack</p>
+          <div className="flex w-full flex-row justify-between">
+            <p className="font-mono text-[15px] font-bold">Execution stack</p>
           </div>
           <div
             ref={scrollRef}
-            className="mb-auto flex h-full w-full flex-row gap-2.5 overflow-auto py-2"
+            className="mb-auto flex h-full w-full flex-row gap-2.5 overflow-auto"
           >
             {(stateHistory.length === 0 || startedTyping) && (
-              <div className="flex w-full max-w-[164px] flex-col">
-                <div className="my-[5px] w-full rounded-[3px] bg-black/20 px-3 py-1 text-center font-space-mono text-white/50">
-                  OP_CODES
+              <div className="flex w-full max-w-[164px] flex-col gap-y-2.5">
+                <div className="w-full rounded-[3px] bg-black/20 px-3 py-1 text-center font-space-mono text-sm text-white/50">
+                  OP_CODE
                 </div>
 
                 <div className="flex h-1/2 min-w-[160px]  flex-col rounded-b-[10px] bg-black/20 p-2.5 md:h-[calc(25dvh-40px)] md:max-h-64">
@@ -482,7 +484,7 @@ const OpRunner = ({
                     <motion.div
                       key={`Overall-container${opCodeIndex}`}
                       id={`Overall-container${opCodeIndex}`}
-                      className="flex flex-col"
+                      className="flex flex-col gap-y-2.5"
                       variants={cardVariants}
                       initial="hidden"
                       animate="visible"
@@ -492,7 +494,7 @@ const OpRunner = ({
                     >
                       <div
                         className={clsx(
-                          'my-[5px] w-full rounded-[3px] border border-none bg-black/20 px-3 py-1 text-center font-space-mono text-[13px]',
+                          'w-full rounded-[3px] border border-none bg-black/20 px-3 py-1 text-center font-space-mono text-[13px]',
                           {
                             'text-[#EF960B]':
                               stack.operation.tokenType === 'conditional',
