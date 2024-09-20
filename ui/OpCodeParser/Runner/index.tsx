@@ -3,13 +3,16 @@
 import clsx from 'clsx'
 import { useMediaQuery, useTranslations } from 'hooks'
 import { useRef, useState, useEffect } from 'react'
-import { LessonView, StatusBarType, SuccessNumbers } from 'types'
+import { LessonView, SuccessNumbers, HasherState } from 'types'
 import { useLessonContext, StatusBar, Loader, Icon } from 'ui'
-import { HasherState } from 'ui/lesson/ScriptingChallenge/Runner/Hasher'
 
-export interface OpCodeRunnerType extends StatusBarType {
+export interface OpCodeRunnerType {
   lang: string
   handleRun: () => void
+  handleTryAgain?: (pressed: boolean) => void
+  success: boolean | SuccessNumbers | null
+  errorMessage?: string
+  nextStepMessage?: string
 }
 
 export default function OpCodeRunner({
@@ -17,8 +20,8 @@ export default function OpCodeRunner({
   handleRun,
   handleTryAgain,
   success,
-  nextStepMessage,
   errorMessage,
+  nextStepMessage,
 }: OpCodeRunnerType) {
   const t = useTranslations(lang)
   const { activeView } = useLessonContext()

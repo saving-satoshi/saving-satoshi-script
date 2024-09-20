@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef, useCallback } from 'react'
 import clsx from 'clsx'
 import LanguageExecutor from './LanguageExecutor'
 import { useLessonContext, ScratchDnD } from 'ui'
-import { SuccessNumbers } from 'ui/common/StatusBar'
-import { LessonView } from 'types'
-import { MainState, OpRunnerTypes, StackType, State, T } from './runnerTypes'
+import { LessonView, SuccessNumbers } from 'types'
+import { MainState, OpRunnerTypes, StackType, State, T } from 'types'
 import { ArcherElement } from 'react-archer'
 import { RelationType } from 'react-archer/lib/types'
 import { useArrows } from 'state/ArrowsContext'
@@ -12,8 +11,7 @@ import { useHorizontalScroll, useLang, useTranslations } from 'hooks'
 import { sleep } from 'utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import OpCodeRunner from './Runner'
-import Icon from 'shared/Icon'
-import { Loader } from 'shared'
+import { Icon, Loader } from 'ui'
 
 const arrowLineStyles = {
   startMarker: true,
@@ -143,8 +141,6 @@ const OpRunner = ({
   initialStackSuccess,
   nextStepMessage,
 }: Omit<OpRunnerTypes, 'children'>) => {
-  const lang = useLang()
-  const t = useTranslations(lang)
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const caretPositionRef = useRef(0)

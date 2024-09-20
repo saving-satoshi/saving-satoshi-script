@@ -6,7 +6,7 @@ export default function usePathData() {
   //let [lang, pageId, chapterId, lessonId] = pathName.split('/').filter((p) => p)
 
   //if (!lang) {
-    lang = 'en'
+    let [lang, pageId, chapterId, lessonId] = ['en', 'chapters', 'chapter-1', 'intro-1']
   //}
 
   return {

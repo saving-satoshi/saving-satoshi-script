@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import { SuccessNumbers } from 'ui/common/StatusBar'
+import { SuccessNumbers } from 'types'
 
 export enum LessonDirection {
   Horizontal = 'horizontal',
@@ -42,3 +42,11 @@ export enum Status {
   Success,
   NextStep, // Step on Advance Challenge in OpRunner
 }
+
+export enum HasherState {
+  Waiting = 0,
+  Running = 1,
+  Error = 2,
+  Success = 3,
+}
+

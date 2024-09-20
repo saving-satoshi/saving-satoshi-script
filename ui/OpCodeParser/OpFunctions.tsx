@@ -1,4 +1,4 @@
-import { StackType, T, TokenTypes } from './runnerTypes'
+import { StackType, T, TokenTypes } from 'types'
 
 const unRecognizedDataTypeRegex =
   /^(?!\d+$)(?!HASH256)(?!SIG)(?!PUBKEY)(?!\b[A-F0-9]+\b).*/

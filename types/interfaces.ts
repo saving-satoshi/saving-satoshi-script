@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from 'react'
-import { SuccessNumbers } from './index.ts'
+import { SuccessNumbers } from 'types'
+import { TokenTypes, LessonDirection, LessonView } from './enums'
 
 export interface OpRunnerTypes {
-  lang: any
   answerScript: string[]
   success: boolean | SuccessNumbers
   setSuccess: Dispatch<SetStateAction<number | boolean>>
@@ -15,10 +15,23 @@ export interface OpRunnerTypes {
   nextStepMessage?: string
 }
 
-interface Token {
+export interface LessonContextType {
+  direction: LessonDirection
+  activeView: LessonView
+  setActiveView: (view: LessonView) => void
+}
+
+export interface Token {
   type: TokenTypes
   resolves: string | number | boolean | null
   value: string
+}
+
+export interface Operation {
+  tokenType?: TokenTypes | null
+  resolves?: string | number | boolean | null
+  value?: string | null
+  type: any
 }
 
 export interface State {
@@ -28,13 +41,6 @@ export interface State {
   negate: number
   height?: number | null
   error?: RunnerError
-}
-
-export interface Operation {
-  tokenType?: TokenTypes | null
-  resolves?: string | number | boolean | null
-  value?: string | null
-  type: any
 }
 
 export interface RunnerError {

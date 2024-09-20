@@ -1,3 +1,6 @@
+import * as Enums from './enums'
+import * as Interfaces from './interfaces'
+
 export * from './enums'
 export * from './interfaces'
 
@@ -7,11 +10,11 @@ export type TabData = {
   disabled?: boolean
 }
 
-export type T = Array<Token>
+export type T = Array<Interfaces.Token>
 
 export type ScriptType = Array<string | boolean | number | null>
 
-export type MainState = State[]
+export type MainState = Interfaces.State[]
 
 export type StackType = Array<string | boolean | number | null>
 

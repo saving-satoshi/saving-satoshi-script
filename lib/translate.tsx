@@ -66,7 +66,7 @@ function injectComponent(result, type) {
     }
 
     const regex = componentRegexes[type]
-    const parts: any = []
+    const parts: React.ReactNode[] = []
     let match
     let index = 0
     let lastIndex = 0
@@ -103,7 +103,7 @@ function injectComponent(result, type) {
           parts.push(
             <Link
               key={index}
-              href={href as any}
+              href={href as string}
               target={target}
               className={clsx('cursor-pointer', className)}
             >

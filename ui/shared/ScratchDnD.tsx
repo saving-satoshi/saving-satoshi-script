@@ -10,7 +10,7 @@ import {
 } from 'react-beautiful-dnd'
 import { uuid } from 'utils'
 import clsx from 'clsx'
-import Icon from 'ui'
+import { Icon } from 'ui'
 import { OpCodeTypes } from '../OpCodeParser/OpFunctions'
 
 type ItemType = {

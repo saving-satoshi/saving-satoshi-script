@@ -25,7 +25,6 @@ const tabData = [
 
 export default function OpCodeParser({
   children,
-  lang,
   answerScript,
   prePopulate,
   readOnly,
@@ -64,7 +63,6 @@ export default function OpCodeParser({
         >
           <ArrowsProvider>
             <OpRunner
-              lang={lang}
               answerScript={answerScript}
               readOnly={readOnly}
               prePopulate={prePopulate}
