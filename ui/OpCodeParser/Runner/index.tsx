@@ -35,6 +35,11 @@ export default function OpCodeRunner({
     handleRun()
   }
 
+  const handleTryAgainClick = () => {
+    setHasherState(0)
+    handleTryAgain()
+  }
+
   useEffect(() => {
     setHasherState(success)
   }, [success])
@@ -52,24 +57,31 @@ export default function OpCodeRunner({
       >
         <button
           disabled={
-            hasherState === 1 || hasherState === 5 || hasherState == true
+            hasherState === 1
           }
           className={clsx(
             'flex h-full items-center justify-start gap-3 p-0 px-4 font-mono text-white',
-            {
-              hidden: hasherState === 5,
-            }
-          )}
-          onClick={handleRunClick}
+              {
+                'bg-green/15': hasherState === 5
+              }
+            )}
+          onClick={hasherState !== 5 ? handleRunClick : handleTryAgainClick}
         >
           {((hasherState === 0 ||
             hasherState === 2 ||
             hasherState === 3 ||
-            hasherState === 6) && (
-            <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-white px-2 py-1.5">
+            hasherState === 6 ||
+            hasherState === 5) && (
+            <div className={clsx(
+                "flex h-6 w-6 items-center justify-center rounded-sm bg-white", 
+                {
+                  "px-2 py-1.5": hasherState !== 5,
+                  "px-0.5 py-0.5": hasherState === 5,
+                }
+              )}>
               <Icon
-                icon="play"
-                className="h-full w-full object-contain text-[#334454]"
+                icon={hasherState !== 5 ? "play" : "refresh"}
+                className="h-full w-full object-contain text-[#334454]" 
               />
             </div>
           )) || (
@@ -88,8 +100,6 @@ export default function OpCodeRunner({
           textClass="text-lg !p-0"
           success={success}
           hints
-          nextStepMessage={nextStepMessage}
-          nextStepButton={t('opcode.reset')}
         />
       </div>
     </div>

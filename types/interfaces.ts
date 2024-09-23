@@ -3,7 +3,6 @@ import { SuccessNumbers } from 'types'
 import { TokenTypes, LessonDirection, LessonView } from './enums'
 
 export interface OpRunnerTypes {
-  answerScript: string[]
   success: boolean | SuccessNumbers
   setSuccess: Dispatch<SetStateAction<number | boolean>>
   children?: React.ReactNode

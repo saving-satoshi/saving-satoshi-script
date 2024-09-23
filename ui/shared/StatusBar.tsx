@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { LessonView } from 'types'
-import { useLessonContext, Button, Icon } from 'ui'
-import { useLang, useProceed, useTranslations } from 'hooks'
+import { useLessonContext, Icon } from 'ui'
+import { useLang, useTranslations } from 'hooks'
 
 export enum Status {
   Begin,
@@ -48,7 +48,6 @@ export default function StatusBar({
   const t = useTranslations(lang)
   const { activeView } = useLessonContext()
   const isActive = activeView !== LessonView.Info
-  const proceed = useProceed()
 
   const getStatus = () => {
     if (success === null || success === 0) {
@@ -175,34 +174,6 @@ export default function StatusBar({
           >
             {statusMessage()}
           </div>
-        </div>
-        <div className="flex gap-[5px]">
-          <Button
-            onClick={handleSubmit}
-            classes={clsx('md:text-2xl', {
-              hidden: !(
-                getStatus() === Status.Poor ||
-                getStatus() === Status.Good ||
-                getStatus() == Status.NextStep
-              ),
-            })}
-          >
-            {nextStepButton || t('status_bar.try_again')}
-          </Button>
-
-          <Button
-            onClick={proceed}
-            disabled={
-              !(getStatus() === Status.Success || getStatus() === Status.Good)
-            }
-            classes={clsx('md:text-2xl', {
-              hidden: !(
-                getStatus() === Status.Success || getStatus() === Status.Good
-              ),
-            })}
-          >
-            {t('status_bar.next')}
-          </Button>
         </div>
       </div>
     </div>

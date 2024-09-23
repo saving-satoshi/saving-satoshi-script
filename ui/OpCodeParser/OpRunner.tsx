@@ -133,7 +133,6 @@ const getRelationsTargetForOperations = (operation: string): Number[] => {
 const OpRunner = ({
   success,
   setSuccess,
-  answerScript,
   readOnly,
   prePopulate,
   advancedChallenge,
@@ -147,7 +146,7 @@ const OpRunner = ({
   const btnClassName =
     'bg-black/10 py-[3px] px-2.5 rounded-[3px] text-white font-space-mono disabled:opacity-25'
   const [script, setScript] = useState(
-    prePopulate ? answerScript.join(' ') : ''
+    prePopulate && 'OP_1 OP_2 OP_ADD'
   )
   const { activeView } = useLessonContext()
   const isActive = activeView !== LessonView.Info
@@ -297,9 +296,6 @@ const OpRunner = ({
 
   const checkSuccessState = (tokens: T, state: State[], stack: StackType) => {
     const filterToStringArray = tokens.map((token) => token.value)
-    const containsEveryScript = answerScript.every((token) =>
-      filterToStringArray.includes(token)
-    )
 
     const doesStackValidate = () => {
       return (
@@ -318,16 +314,14 @@ const OpRunner = ({
     }
 
     if (
-      (containsEveryScript && doesStackValidate() && !advancedChallenge) ||
-      (containsEveryScript &&
-        doesStackValidate() &&
+      (doesStackValidate() && !advancedChallenge) ||
+      (doesStackValidate() &&
         advancedChallenge &&
         step === 2 &&
         initialStack === initialStackSuccess)
     ) {
       return 5
     } else if (
-      containsEveryScript &&
       doesStackValidate() &&
       advancedChallenge &&
       step == 1
@@ -337,7 +331,6 @@ const OpRunner = ({
       setInitialStack('')
       return 6
     } else if (
-      containsEveryScript &&
       doesStackValidate() &&
       advancedChallenge &&
       step == 2 &&
@@ -361,6 +354,7 @@ const OpRunner = ({
 
   const handleTryAgain = () => {
     setSuccess(0)
+    setLastSuccessState(0)
     setStep(1)
     initialHeight && height && setHeight(height - 1)
     setStateHistory([])
@@ -388,7 +382,6 @@ const OpRunner = ({
           )}
         >
           <ScratchDnD
-            items={answerScript}
             prePopulate={prePopulate || step === 2}
             onItemsUpdate={handleDnDScript}
           />
