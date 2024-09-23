@@ -68,6 +68,33 @@ export default function Home() {
                   </Link>
                 </li>
               </ul>
+              <p className="mt-6">Notable abstractions:</p>
+              <ul className="ml-2.5 list-inside list-disc">
+                <li>
+                  <span className="rounded-sm bg-black/30 px-1 font-space-mono">
+                    OP_PUSH
+                  </span>{" "}
+                  accepts data as{" "}
+                  <span className="rounded-sm bg-black/30 px-1 font-space-mono">
+                    SIG(anything)
+                  </span>
+                  ,{" "}
+                  <span className="rounded-sm bg-black/30 px-1 font-space-mono">
+                    PUBKEY(anything)
+                  </span>
+                  , or hex
+                </li>
+                <li>
+                  <span className="rounded-sm bg-black/30 px-1 font-space-mono">
+                    OP_PUSH
+                  </span>{" "}
+                  encompasses all{" "}
+                  <span className="rounded-sm bg-black/30 px-1 font-space-mono">
+                    OP_PUSHBYTES
+                  </span>{" "}
+                  opcodes
+                </li>
+              </ul>
             </div>
           </div>
         </LessonInfo>
