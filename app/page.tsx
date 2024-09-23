@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <div className="bg-gradient-to-tl from-[#486c72] to-[#516644]">
       <OpCodeParser 
-        answerScript={['OP_ADD', 'OP_3', 'OP_EQUAL']}
         success={success}
         setSuccess={setSuccess} 
       >

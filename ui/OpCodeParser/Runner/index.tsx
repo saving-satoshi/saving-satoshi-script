@@ -9,7 +9,7 @@ import { useLessonContext, StatusBar, Loader, Icon } from 'ui'
 export interface OpCodeRunnerType {
   lang: string
   handleRun: () => void
-  handleTryAgain?: (pressed: boolean) => void
+  handleTryAgain?: () => void
   success: boolean | SuccessNumbers | null
   errorMessage?: string
   nextStepMessage?: string
@@ -37,7 +37,7 @@ export default function OpCodeRunner({
 
   const handleTryAgainClick = () => {
     setHasherState(0)
-    handleTryAgain()
+    handleTryAgain && handleTryAgain()
   }
 
   useEffect(() => {
