@@ -61,6 +61,6 @@ export default function HeroTitle() {
           fill="currentColor"
         />
       </svg>
-   </h1>
+    </h1>
   )
 }

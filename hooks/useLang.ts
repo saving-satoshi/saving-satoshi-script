@@ -8,7 +8,7 @@ export default function useLang() {
   //const lang = parts.shift()
 
   //if (!lang) {
-    return i18n.defaultLocale
+  return i18n.defaultLocale
   //}
 
   //return lang

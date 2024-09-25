@@ -49,4 +49,3 @@ export enum HasherState {
   Error = 2,
   Success = 3,
 }
-

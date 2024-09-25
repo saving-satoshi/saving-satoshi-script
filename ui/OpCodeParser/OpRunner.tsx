@@ -145,9 +145,7 @@ const OpRunner = ({
   const caretPositionRef = useRef(0)
   const btnClassName =
     'bg-black/10 py-[3px] px-2.5 rounded-[3px] text-white font-space-mono disabled:opacity-25'
-  const [script, setScript] = useState(
-    prePopulate && 'OP_1 OP_2 OP_ADD'
-  )
+  const [script, setScript] = useState(prePopulate && 'OP_1 OP_2 OP_ADD')
   const { activeView } = useLessonContext()
   const isActive = activeView !== LessonView.Info
   const [initialStack, setInitialStack] = useState('')
@@ -321,11 +319,7 @@ const OpRunner = ({
         initialStack === initialStackSuccess)
     ) {
       return 5
-    } else if (
-      doesStackValidate() &&
-      advancedChallenge &&
-      step == 1
-    ) {
+    } else if (doesStackValidate() && advancedChallenge && step == 1) {
       setStep(2)
       initialHeight && height && setHeight(height + 1)
       setInitialStack('')
@@ -533,8 +527,8 @@ const OpRunner = ({
                                       {
                                         'bg-red/35':
                                           stack.error.message !== null ||
-                                          (stack.stack[0] !== 1 && 
-                                          stack.stack[0] !== true) ||
+                                          (stack.stack[0] !== 1 &&
+                                            stack.stack[0] !== true) ||
                                           (opCodeIndex === isFinalToken() - 1 &&
                                             (stack.stack.length !== 1 ||
                                               stack.stack[0] === false ||

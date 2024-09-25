@@ -1,12 +1,5 @@
 import { OpCodeTypes, opFunctions } from './OpFunctions'
-import {
-  MainState,
-  StackType,
-  State,
-  T,
-  TokenTypes,
-  RunnerError,
-} from 'types'
+import { MainState, StackType, State, T, TokenTypes, RunnerError } from 'types'
 
 class LanguageExecutor {
   tokens: T
@@ -289,4 +282,3 @@ class LanguageExecutor {
 }
 
 export default LanguageExecutor
-
