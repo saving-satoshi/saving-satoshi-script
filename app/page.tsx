@@ -12,10 +12,12 @@ export default function Home() {
 
   const LessonFallback = () => {
     return (
-      <div className="flex flex-row gap-[15px]">
-        <HeroTitle />
-        <Icon icon="cross" className="flex items-center" />
-        <h1 className="text-[24px] font-bold">{t('homepage.title')}</h1>
+      <div className="flex flex-col gap-5 font-nunito md:pt-5">
+        <div className="flex flex-row gap-[15px]">
+          <HeroTitle />
+          <Icon icon="cross" className="flex items-center" />
+          <h1 className="text-[24px] font-bold">{t('homepage.title')}</h1>
+        </div>
       </div>
     )
   }
