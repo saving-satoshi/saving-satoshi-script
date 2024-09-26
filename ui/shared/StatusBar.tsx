@@ -140,19 +140,15 @@ export default function StatusBar({
 
   return (
     <div
-      className={clsx(
-        className,
-        'border-t border-white/25 pl-4 transition-all',
-        {
-          'w-screen': full,
-          'w-full': !full,
-          'bg-green/15':
-            getStatus() === Status.Success || getStatus() === Status.Good,
-          'bg-black/20':
-            getStatus() !== Status.Success || getStatus() !== Status.Good,
-          block: getStatus() === Status.Success || (Status.Good && isActive),
-        }
-      )}
+      className={clsx(className, 'border-t border-white/25 transition-all', {
+        'w-screen': full,
+        'w-full': !full,
+        'bg-green/15':
+          getStatus() === Status.Success || getStatus() === Status.Good,
+        'bg-black/20':
+          getStatus() !== Status.Success || getStatus() !== Status.Good,
+        block: getStatus() === Status.Success || (Status.Good && isActive),
+      })}
     >
       <div className="flex h-14 flex-row items-stretch justify-between max-md:gap-4">
         <div

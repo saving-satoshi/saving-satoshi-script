@@ -605,12 +605,22 @@ const OpRunner = ({
       </div>
       <Suspense
         fallback={
-          <StatusBar
-            beginMessage={t('opcode.run')}
-            className="h-14 min-h-14 grow border-t-0"
-            textClass="text-lg !p-0"
-            success={0}
-          />
+          <>
+            <div className="flex h-full items-center justify-start gap-3 p-0 px-4 font-mono text-white">
+              <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-white px-2 py-1.5">
+                <Icon
+                  icon="play"
+                  className="h-full w-full object-contain text-[#334454]"
+                />
+              </div>
+            </div>
+            <StatusBar
+              beginMessage={t('opcode.run')}
+              className="h-14 min-h-14 grow border-t-0"
+              textClass="text-lg !p-0"
+              success={0}
+            />
+          </>
         }
       >
         <OpCodeRunner
