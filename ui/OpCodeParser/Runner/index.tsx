@@ -3,12 +3,15 @@
 import clsx from 'clsx'
 import { useMediaQuery, useTranslations } from 'hooks'
 import { useRef, useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { LessonView, SuccessNumbers, HasherState } from 'types'
-import { useLessonContext, StatusBar, Loader, Icon } from 'ui'
+import { useLessonContext, StatusBar, Loader, Icon, Button } from 'ui'
+import { sleep } from 'utils'
 
 export interface OpCodeRunnerType {
   lang: string
   handleRun: () => void
+  handleCopy: () => void
   handleTryAgain?: () => void
   success: boolean | SuccessNumbers | null
   errorMessage?: string
@@ -17,6 +20,7 @@ export interface OpCodeRunnerType {
 
 export default function OpCodeRunner({
   lang,
+  handleCopy,
   handleRun,
   handleTryAgain,
   success,
@@ -30,9 +34,20 @@ export default function OpCodeRunner({
     SuccessNumbers | boolean | null
   >(0)
   const isSmallScreen = useMediaQuery({ width: 767 })
+  const params = useSearchParams()
+  const lesson = params.get('lesson')
+
+  const [clicked, setClicked] = useState<boolean>(false)
 
   const handleRunClick = () => {
     handleRun()
+  }
+
+  const handleCopyClick = async () => {
+    setClicked(true)
+    handleCopy()
+    await sleep(1000)
+    setClicked(false)
   }
 
   const handleTryAgainClick = () => {
@@ -101,6 +116,11 @@ export default function OpCodeRunner({
           success={success}
           hints
         />
+        {lesson && hasherState === 5 && (
+          <Button classes="whitespace-nowrap h-full" onClick={handleCopyClick}>
+            {clicked ? 'Copied' : 'Copy'}
+          </Button>
+        )}
       </div>
     </div>
   )

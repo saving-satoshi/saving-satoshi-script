@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  Suspense,
+} from 'react'
 import clsx from 'clsx'
 import LanguageExecutor from './LanguageExecutor'
 import { useLessonContext, ScratchDnD } from 'ui'
@@ -354,6 +360,12 @@ const OpRunner = ({
     setStateHistory([])
   }
 
+  const handleCopy = () => {
+    !!script &&
+      typeof script === 'string' &&
+      navigator.clipboard.writeText(script)
+  }
+
   const colorizeText = (stackItem: string): string => {
     const regex = /(SIG|HASH256|PUBKEY)/g
 
@@ -589,13 +601,16 @@ const OpRunner = ({
           </div>
         </div>
       </div>
-      <OpCodeRunner
-        lang="en"
-        errorMessage={error || ''}
-        handleTryAgain={handleTryAgain}
-        handleRun={handleStep}
-        success={lastSuccessState}
-      />
+      <Suspense>
+        <OpCodeRunner
+          lang="en"
+          errorMessage={error || ''}
+          handleTryAgain={handleTryAgain}
+          handleRun={handleStep}
+          handleCopy={handleCopy}
+          success={lastSuccessState}
+        />
+      </Suspense>
     </div>
   )
 }
