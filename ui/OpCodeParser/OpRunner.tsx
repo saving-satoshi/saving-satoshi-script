@@ -603,10 +603,7 @@ const OpRunner = ({
       </div>
       <Suspense
         fallback={
-          <StatusBar
-            className="h-14 min-h-14 grow border-t-0 pl-4"
-            success={false}
-          />
+          <StatusBar className="h-14 min-h-14 grow border-t-0" success={0} />
         }
       >
         <OpCodeRunner
