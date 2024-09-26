@@ -60,7 +60,7 @@ export default function OpCodeRunner({
   }, [success])
 
   return (
-    <div className="flex ">
+    <div className="flex">
       <div
         className={clsx(
           'flex h-14 min-h-14 w-full items-start border-t border-white border-opacity-30 bg-black/20',

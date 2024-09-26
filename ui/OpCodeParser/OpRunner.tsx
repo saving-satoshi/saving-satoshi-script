@@ -136,6 +136,31 @@ const getRelationsTargetForOperations = (operation: string): Number[] => {
   }
 }
 
+const StatusBarFallback = () => {
+  const lang = useLang()
+  const t = useTranslations(lang)
+  return (
+    <div className="flex">
+      <div className="flex h-14 min-h-14 w-full items-start border-t border-white border-opacity-30 bg-black/20">
+        <div className="flex h-full items-center justify-start gap-3 p-0 px-4 font-mono text-white">
+          <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-white px-2 py-1.5">
+            <Icon
+              icon="play"
+              className="h-full w-full object-contain text-[#334454]"
+            />
+          </div>
+        </div>
+        <StatusBar
+          beginMessage={t('opcode.run')}
+          className="h-14 min-h-14 grow border-t-0 !bg-transparent"
+          textClass="text-lg !p-0"
+          success={0}
+        />
+      </div>
+    </div>
+  )
+}
+
 const OpRunner = ({
   success,
   setSuccess,
@@ -603,26 +628,7 @@ const OpRunner = ({
           </div>
         </div>
       </div>
-      <Suspense
-        fallback={
-          <>
-            <div className="flex h-full items-center justify-start gap-3 p-0 px-4 font-mono text-white">
-              <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-white px-2 py-1.5">
-                <Icon
-                  icon="play"
-                  className="h-full w-full object-contain text-[#334454]"
-                />
-              </div>
-            </div>
-            <StatusBar
-              beginMessage={t('opcode.run')}
-              className="h-14 min-h-14 grow border-t-0"
-              textClass="text-lg !p-0"
-              success={0}
-            />
-          </>
-        }
-      >
+      <Suspense fallback={<StatusBarFallback />}>
         <OpCodeRunner
           lang="en"
           errorMessage={error || ''}
