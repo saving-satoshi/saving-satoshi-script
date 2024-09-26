@@ -149,6 +149,8 @@ const OpRunner = ({
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const caretPositionRef = useRef(0)
+  const lang = useLang()
+  const t = useTranslations(lang)
   const btnClassName =
     'bg-black/10 py-[3px] px-2.5 rounded-[3px] text-white font-space-mono disabled:opacity-25'
   const [script, setScript] = useState(prePopulate && 'OP_1 OP_2 OP_ADD')
@@ -603,7 +605,12 @@ const OpRunner = ({
       </div>
       <Suspense
         fallback={
-          <StatusBar className="h-14 min-h-14 grow border-t-0" success={0} />
+          <StatusBar
+            beginMessage={t('opcode.run')}
+            className="h-14 min-h-14 grow border-t-0"
+            textClass="text-lg !p-0"
+            success={0}
+          />
         }
       >
         <OpCodeRunner
