@@ -17,7 +17,7 @@ import { useHorizontalScroll, useLang, useTranslations } from 'hooks'
 import { sleep } from 'utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import OpCodeRunner from './Runner'
-import { Icon, Loader } from 'ui'
+import { Icon, Loader, StatusBar } from 'ui'
 
 const arrowLineStyles = {
   startMarker: true,
@@ -601,7 +601,14 @@ const OpRunner = ({
           </div>
         </div>
       </div>
-      <Suspense>
+      <Suspense
+        fallback={
+          <StatusBar
+            className="h-14 min-h-14 grow border-t-0 pl-4"
+            success={false}
+          />
+        }
+      >
         <OpCodeRunner
           lang="en"
           errorMessage={error || ''}
