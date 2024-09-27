@@ -3,7 +3,6 @@
 import clsx from 'clsx'
 import { useMediaQuery, useTranslations } from 'hooks'
 import { useRef, useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { LessonView, SuccessNumbers, HasherState } from 'types'
 import { useLessonContext, StatusBar, Loader, Icon, Button } from 'ui'
 import { sleep } from 'utils'
@@ -34,8 +33,6 @@ export default function OpCodeRunner({
     SuccessNumbers | boolean | null
   >(0)
   const isSmallScreen = useMediaQuery({ width: 767 })
-  const params = useSearchParams()
-  const lesson = params.get('lesson')
 
   const [clicked, setClicked] = useState<boolean>(false)
 
@@ -116,7 +113,7 @@ export default function OpCodeRunner({
           success={success}
           hints
         />
-        {lesson && hasherState === 5 && (
+        {hasherState === 5 && (
           <Button classes="whitespace-nowrap h-full" onClick={handleCopyClick}>
             {clicked ? 'Copied' : 'Copy'}
           </Button>
