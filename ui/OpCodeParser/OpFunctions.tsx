@@ -411,7 +411,7 @@ export const opFunctions: { [key: string]: Function } = {
       }
     }
     return {
-      value: stack[stack?.length - 1].toString('16').length,
+      value: stack[stack?.length - 1]?.toString('16').length,
       error: null,
     }
   },
