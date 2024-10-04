@@ -404,14 +404,16 @@ export const opFunctions: { [key: string]: Function } = {
         value: 1,
         error: null,
       }
-    } else if (stack[stack?.length - 1] === false) {
+    } else if (!!stack[stack?.length - 1] === false) {
       return {
         value: 0,
         error: null,
       }
     }
     return {
-      value: stack[stack?.length - 1]?.toString(16).length,
+      value: Math.ceil(
+        Number(stack[stack?.length - 1])?.toString(16).length / 2
+      ),
       error: null,
     }
   },
