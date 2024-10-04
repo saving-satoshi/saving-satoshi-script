@@ -224,7 +224,7 @@ class LanguageExecutor {
       case TokenTypes.STACK:
         if (this.negate === 0) {
           opResolves = opFunctions[element.value](this.stack)
-          if (opResolves?.value) {
+          if (opResolves?.value !== null && opResolves?.value !== undefined) {
             this.stack.push(opResolves.value)
           }
         }

@@ -52,6 +52,7 @@ const getRelationsSourceForOperation = (
         },
       ]
     case 'OP_DUP':
+    case 'OP_SIZE':
     case 'OP_HASH256':
       return [
         {
@@ -119,6 +120,7 @@ const getRelationsTargetForOperations = (operation: string): Number[] => {
     case 'OP_SUB':
     case 'OP_MUL':
     case 'OP_DIV':
+    case 'OP_SIZE':
     case 'OP_HASH256':
     case 'OP_CHECKSIG':
     case 'OP_CHECKMULTISIG':

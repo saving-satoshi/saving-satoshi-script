@@ -373,7 +373,7 @@ export const opFunctions: { [key: string]: Function } = {
     if (stack?.length < 2) {
       return {
         value: null,
-        error: 'OP_EQUALVERIFY requires 2 items on the stack',
+        error: 'OP_EQUALVERIFY requires two items on the stack',
       }
     }
     const a = stack.pop()
@@ -391,12 +391,36 @@ export const opFunctions: { [key: string]: Function } = {
       error: null,
     }
   },
+  OP_SIZE: (stack: StackType) => {
+    if (!stack) return null
+    if (stack[stack.length - 1] === undefined) {
+      return {
+        value: null,
+        error: 'OP_SIZE requires at least one item on the stack',
+      }
+    }
+    if (stack[stack?.length - 1] === true) {
+      return {
+        value: 1,
+        error: null,
+      }
+    } else if (stack[stack?.length - 1] === false) {
+      return {
+        value: 0,
+        error: null,
+      }
+    }
+    return {
+      value: stack[stack?.length - 1].toString('16').length,
+      error: null,
+    }
+  },
   OP_DUP: (stack: StackType) => {
     if (!stack) return null
     if (!stack[stack.length - 1]) {
       return {
         value: null,
-        error: 'OP_DUP needs at least one item on the stack',
+        error: 'OP_DUP requires at least one item on the stack',
       }
     }
     return {
@@ -409,7 +433,7 @@ export const opFunctions: { [key: string]: Function } = {
     if (stack?.length < 1) {
       return {
         value: null,
-        error: 'OP_DROP requires 1 item on the stack',
+        error: 'OP_DROP requires at least one item on the stack',
       }
     }
     stack?.pop()
@@ -419,7 +443,7 @@ export const opFunctions: { [key: string]: Function } = {
     if (stack?.length < 1) {
       return {
         value: null,
-        error: 'OP_VERIFY requires 1 items on the stack',
+        error: 'OP_VERIFY requires at least one item on the stack',
       }
     }
     const a = stack?.pop()
@@ -478,6 +502,7 @@ export const OpCodeTypes = {
   OP_EQUAL: 'bitwise',
   OP_EQUALVERIFY: 'bitwise',
 
+  OP_SIZE: 'stack',
   OP_DUP: 'stack',
   OP_DROP: 'stack',
   OP_VERIFY: 'stack',
