@@ -399,9 +399,14 @@ export const opFunctions: { [key: string]: Function } = {
         error: 'OP_SIZE requires at least one item on the stack',
       }
     }
-    if (Number.isNaN(Number(stack[stack?.length - 1]))) {
+    let lastStackItem = stack[stack?.length - 1]
+    if (
+      lastStackItem !== undefined &&
+      typeof lastStackItem === 'string' &&
+      isNaN(Number(lastStackItem))
+    ) {
       return {
-        value: stack[stack?.length - 1]?.toString().length / 2,
+        value: lastStackItem?.toString()?.length / 2,
         error: null,
       }
     }
