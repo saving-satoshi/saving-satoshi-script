@@ -248,7 +248,7 @@ export const opFunctions: { [key: string]: Function } = {
     return {
       value: crypto
         .createHash('sha256')
-        .update(a.toLowerCase())
+        .update(a?.toString()?.toLowerCase() || '')
         .digest('hex')
         .toUpperCase(),
       error: null,
@@ -266,7 +266,7 @@ export const opFunctions: { [key: string]: Function } = {
     return {
       value: crypto
         .createHash('rmd160')
-        .update(a.toLowerCase())
+        .update(a?.toString()?.toLowerCase() || '')
         .digest('hex')
         .toUpperCase(),
       error: null,
@@ -285,7 +285,10 @@ export const opFunctions: { [key: string]: Function } = {
       value: crypto
         .createHash('rmd160')
         .update(
-          crypto.createHash('sha256').update(a.toLowerCase()).digest('hex')
+          crypto
+            .createHash('sha256')
+            .update(a?.toString()?.toLowerCase() || '')
+            .digest('hex')
         )
         .digest('hex')
         .toUpperCase(),
@@ -305,7 +308,10 @@ export const opFunctions: { [key: string]: Function } = {
       value: crypto
         .createHash('sha256')
         .update(
-          crypto.createHash('sha256').update(a.toLowerCase()).digest('hex')
+          crypto
+            .createHash('sha256')
+            .update(a?.toString()?.toLowerCase() || '')
+            .digest('hex')
         )
         .digest('hex')
         .toUpperCase(),
