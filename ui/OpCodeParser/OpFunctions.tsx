@@ -401,7 +401,7 @@ export const opFunctions: { [key: string]: Function } = {
     }
     if (Number.isNaN(Number(stack[stack?.length - 1]))) {
       return {
-        value: stack[stack?.length - 1]?.length / 2,
+        value: stack[stack?.length - 1]?.toString().length / 2,
         error: null,
       }
     }
