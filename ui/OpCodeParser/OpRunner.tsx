@@ -300,10 +300,12 @@ const OpRunner = ({
     const filterToStringArray = tokens.map((token) => token.value)
 
     const doesStackValidate = () => {
+      console.log(Number(stack[0]))
       return (
         state.length === isFinalToken() &&
         stack.length === 1 &&
-        (stack[0] === 1 || stack[0] === true) &&
+        !!stack[0] &&
+        Number(stack[0]) !== 0 &&
         !state.some((error) => error?.error?.message)
       )
     }
@@ -472,6 +474,7 @@ const OpRunner = ({
                 if (stack?.error) {
                   error = stack.error?.message
                 }
+                console.log(!!stack.stack[0])
                 return (
                   stack.negate === 0 &&
                   !startedTyping && (
@@ -538,8 +541,8 @@ const OpRunner = ({
                                       {
                                         'bg-red/35':
                                           stack.error.message !== null ||
-                                          (stack.stack[0] !== 1 &&
-                                            stack.stack[0] !== true) ||
+                                          !stack.stack[0] ||
+                                          Number(stack.stack[0]) === 0 ||
                                           (opCodeIndex === isFinalToken() - 1 &&
                                             (stack.stack.length !== 1 ||
                                               stack.stack[0] === false ||
@@ -549,8 +552,8 @@ const OpRunner = ({
                                           opCodeIndex === isFinalToken() - 1 &&
                                           stack.stack.length === 1 &&
                                           stack.stack.length === 1 &&
-                                          (stack.stack[0] === true ||
-                                            stack.stack[0] == 1) &&
+                                          !!stack.stack[0] &&
+                                          Number(stack.stack[0]) !== 0 &&
                                           !stack.error?.message,
                                         'bg-white/15':
                                           (stack.error.message === null &&

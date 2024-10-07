@@ -106,7 +106,7 @@ class LanguageExecutor {
     const currentStack = [...this.stack]
     const currentNegate = this.negate
     const unRecognizedDataTypeRegex =
-      /^(?!\d+$)(?!HASH256)(?!SIG)(?!PUBKEY)(?!\b[A-F0-9]+\b).*/
+      /^(?!-?\d+$)(?!HASH256)(?!SIG)(?!PUBKEY)(?!\b[A-F0-9]+\b).*/
     let opResolves: any
     let error: RunnerError = { type: '', message: null }
 

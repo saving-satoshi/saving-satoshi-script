@@ -1,7 +1,7 @@
 import { StackType, T, TokenTypes } from 'types'
 
 const unRecognizedDataTypeRegex =
-  /^(?!\d+$)(?!HASH256)(?!SIG)(?!PUBKEY)(?!\b[A-F0-9]+\b).*/
+  /^(?!-?\d+$)(?!HASH256)(?!SIG)(?!PUBKEY)(?!\b[A-F0-9]+\b).*/
 
 const getKey = (keyData) => {
   if (!keyData) {
@@ -399,6 +399,12 @@ export const opFunctions: { [key: string]: Function } = {
         error: 'OP_SIZE requires at least one item on the stack',
       }
     }
+    if (Number.isNaN(Number(stack[stack?.length - 1]))) {
+      return {
+        value: stack[stack?.length - 1].length / 2,
+        error: null,
+      }
+    }
     if (stack[stack?.length - 1] === true) {
       return {
         value: 1,
@@ -412,7 +418,7 @@ export const opFunctions: { [key: string]: Function } = {
     }
     return {
       value: Math.ceil(
-        Number(stack[stack?.length - 1])?.toString(16).length / 2
+        Number(stack[stack?.length - 1])?.toString(16).length - 1
       ),
       error: null,
     }
