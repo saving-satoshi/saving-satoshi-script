@@ -1,4 +1,5 @@
 import { StackType, T, TokenTypes } from 'types'
+import crypto from 'crypto'
 
 const unRecognizedDataTypeRegex =
   /^(?!-?\d+$)(?!HASH256)(?!SIG)(?!PUBKEY)(?!\b[A-F0-9]+\b).*/
@@ -235,6 +236,62 @@ export const opFunctions: { [key: string]: Function } = {
       error: null,
     }
   },
+  OP_SHA256: (stack: StackType) => {
+    if (!stack) return null
+    if (stack?.length < 1) {
+      return {
+        value: null,
+        error: 'OP_SHA256 requires 1 item on the stack',
+      }
+    }
+    const a = stack?.pop()
+    return {
+      value: crypto
+        .createHash('sha256')
+        .update(a.toLowerCase())
+        .digest('hex')
+        .toUpperCase(),
+      error: null,
+    }
+  },
+  OP_RIPEMD160: (stack: StackType) => {
+    if (!stack) return null
+    if (stack?.length < 1) {
+      return {
+        value: null,
+        error: 'OP_RIPEMD160 requires 1 item on the stack',
+      }
+    }
+    const a = stack?.pop()
+    return {
+      value: crypto
+        .createHash('rmd160')
+        .update(a.toLowerCase())
+        .digest('hex')
+        .toUpperCase(),
+      error: null,
+    }
+  },
+  OP_HASH160: (stack: StackType) => {
+    if (!stack) return null
+    if (stack?.length < 1) {
+      return {
+        value: null,
+        error: 'OP_HASH160 requires 1 item on the stack',
+      }
+    }
+    const a = stack?.pop()
+    return {
+      value: crypto
+        .createHash('rmd160')
+        .update(
+          crypto.createHash('sha256').update(a.toLowerCase()).digest('hex')
+        )
+        .digest('hex')
+        .toUpperCase(),
+      error: null,
+    }
+  },
   OP_HASH256: (stack: StackType) => {
     if (!stack) return null
     if (stack?.length < 1) {
@@ -245,7 +302,13 @@ export const opFunctions: { [key: string]: Function } = {
     }
     const a = stack?.pop()
     return {
-      value: `HASH256(${a})`,
+      value: crypto
+        .createHash('sha256')
+        .update(
+          crypto.createHash('sha256').update(a.toLowerCase()).digest('hex')
+        )
+        .digest('hex')
+        .toUpperCase(),
       error: null,
     }
   },
@@ -508,6 +571,9 @@ export const OpCodeTypes = {
   OP_ELSE: 'conditional',
   OP_ENDIF: 'conditional',
 
+  OP_SHA256: 'crypto',
+  OP_RIPEMD160: 'crypto',
+  OP_HASH160: 'crypto',
   OP_HASH256: 'crypto',
   OP_CHECKSIG: 'crypto',
   OP_CHECKMULTISIG: 'crypto',

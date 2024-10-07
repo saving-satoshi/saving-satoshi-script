@@ -53,6 +53,9 @@ const getRelationsSourceForOperation = (
       ]
     case 'OP_DUP':
     case 'OP_SIZE':
+    case 'OP_SHA256':
+    case 'OP_RIPEMD160':
+    case 'OP_HASH160':
     case 'OP_HASH256':
       return [
         {
@@ -121,6 +124,9 @@ const getRelationsTargetForOperations = (operation: string): Number[] => {
     case 'OP_MUL':
     case 'OP_DIV':
     case 'OP_SIZE':
+    case 'OP_SHA256':
+    case 'OP_RIPEMD160':
+    case 'OP_HASH160':
     case 'OP_HASH256':
     case 'OP_CHECKSIG':
     case 'OP_CHECKMULTISIG':
@@ -300,7 +306,6 @@ const OpRunner = ({
     const filterToStringArray = tokens.map((token) => token.value)
 
     const doesStackValidate = () => {
-      console.log(Number(stack[0]))
       return (
         state.length === isFinalToken() &&
         stack.length === 1 &&
@@ -447,12 +452,12 @@ const OpRunner = ({
             className="mb-auto flex h-full w-full flex-row gap-2.5 overflow-auto"
           >
             {(stateHistory.length === 0 || startedTyping) && (
-              <div className="flex w-full max-w-[164px] flex-col gap-y-2.5">
+              <div className="flex w-full max-w-40 flex-col gap-y-2.5">
                 <div className="w-full rounded-[3px] bg-black/20 px-3 py-1 text-center font-space-mono text-sm text-white/50">
                   OP_CODE
                 </div>
 
-                <div className="flex h-1/2 min-w-[160px]  flex-col rounded-b-[10px] bg-black/20 p-2.5 md:h-[calc(25dvh-40px)] md:max-h-64">
+                <div className="flex h-1/2 min-w-40  flex-col rounded-b-[10px] bg-black/20 p-2.5 md:h-[calc(25dvh-40px)] md:max-h-64">
                   <div
                     className="my-auto resize-none break-all border-none bg-transparent font-space-mono text-white/50 focus:outline-none"
                     style={{ whiteSpace: 'pre-wrap' }}
@@ -474,14 +479,13 @@ const OpRunner = ({
                 if (stack?.error) {
                   error = stack.error?.message
                 }
-                console.log(!!stack.stack[0])
                 return (
                   stack.negate === 0 &&
                   !startedTyping && (
                     <motion.div
                       key={`Overall-container${opCodeIndex}`}
                       id={`Overall-container${opCodeIndex}`}
-                      className="flex flex-col gap-y-2.5"
+                      className="flex max-w-40 flex-col gap-y-2.5"
                       variants={cardVariants}
                       initial="hidden"
                       animate="visible"
@@ -507,7 +511,7 @@ const OpRunner = ({
                       {stack && (
                         <div
                           key={`Container${opCodeIndex}`}
-                          className="flex h-full min-w-[160px] flex-col overflow-y-auto rounded-b-[10px] bg-black bg-opacity-20 p-2.5 md:h-[calc(25dvh-40px)] md:max-h-64"
+                          className="flex h-full min-w-40 flex-col overflow-y-auto rounded-b-[10px] bg-black bg-opacity-20 p-2.5 md:h-[calc(25dvh-40px)] md:max-h-64"
                         >
                           <div
                             key={opCodeIndex}
@@ -537,7 +541,7 @@ const OpRunner = ({
                                     key={`stackItem${i}`}
                                     id={`stackItem${i}`}
                                     className={clsx(
-                                      'my-[5px] text-nowrap rounded-[3px] px-3 py-1 text-[13px]',
+                                      'my-[5px] truncate text-nowrap rounded-[3px] px-3 py-1 text-[13px]',
                                       {
                                         'bg-red/35':
                                           stack.error.message !== null ||
