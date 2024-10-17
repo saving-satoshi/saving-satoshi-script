@@ -39,7 +39,7 @@ export interface State {
   step: number
   negate: number
   height?: number | null
-  brodcastHeight?: number | null
+  nSequenceTime?: number | null
   error?: RunnerError
 }
 
