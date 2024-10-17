@@ -139,7 +139,6 @@ export const opFunctions: { [key: string]: Function } = {
     nSequenceTime: number
   ) => {
     if (!stack) return null
-    console.log(stack, height, nSequenceTime)
     if (stack?.length < 1) {
       return {
         value: null,
@@ -161,7 +160,6 @@ export const opFunctions: { [key: string]: Function } = {
     const a = parseInt(stack[stack?.length - 1] as string)
     const nLocktime = height
     const nSequence = nSequenceTime
-    console.log(a > nSequence)
     if (a > nSequence) {
       return {
         value: null,
