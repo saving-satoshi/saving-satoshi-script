@@ -160,6 +160,9 @@ const OpRunner = ({
   const isActive = activeView !== LessonView.Info
   const [initialStack, setInitialStack] = useState('')
   const [step, setStep] = useState<number>(1)
+  const [nSequenceTime, setNSequenceTime] = useState<number | undefined>(
+    undefined
+  )
   const [height, setHeight] = useState<number | undefined>(
     initialHeight ?? undefined
   )
@@ -190,7 +193,12 @@ const OpRunner = ({
     const tokens = LanguageExecutor.parsableInputToTokens(
       LanguageExecutor.rawInputToParsableInput(`INITIAL_STACK ${script}`)
     )
-    const newExecutor = new LanguageExecutor(tokens, initialStackArray, height)
+    const newExecutor = new LanguageExecutor(
+      tokens,
+      initialStackArray,
+      height,
+      nSequenceTime
+    )
 
     // Create an initial state to represent the initial stack
     setExecutor(newExecutor)
@@ -285,6 +293,15 @@ const OpRunner = ({
   const handleHeightChange = (event) => {
     if (!initialHeight) {
       setHeight(
+        isNaN(parseInt(event.target.value)) ? 0 : parseInt(event.target.value)
+      )
+      setStartedTyping(true)
+    }
+  }
+
+  const handleNSequenceTimeChange = (event) => {
+    if (!initialHeight) {
+      setNSequenceTime(
         isNaN(parseInt(event.target.value)) ? 0 : parseInt(event.target.value)
       )
       setStartedTyping(true)
@@ -419,20 +436,35 @@ const OpRunner = ({
               placeholder="0xA 10..."
             />
           </div>
-
-          <div className="flex flex-col border-b border-b-white/25 px-5 py-[15px]">
-            <p className="font-space-mono text-[15px] font-bold">
-              Next block height
-            </p>
-            <input
-              title="Enter any number above 1."
-              onChange={handleHeightChange}
-              value={height}
-              className="h-[25px] flex-grow border-none bg-transparent font-space-mono text-[15px] [appearance:textfield] placeholder:text-white/50 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              placeholder="6930001"
-              type="number"
-              min="1"
-            />
+          <div className="grid grid-cols-2">
+            <div className="flex flex-col border-b border-l border-white/25 px-5 py-[15px]">
+              <p className="font-space-mono text-[15px] font-bold">
+                Next block height
+              </p>
+              <input
+                title="Enter any number above 1."
+                onChange={handleHeightChange}
+                value={height}
+                className="h-[25px] flex-grow border-none bg-transparent font-space-mono text-[15px] [appearance:textfield] placeholder:text-white/50 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                placeholder="6930001"
+                type="number"
+                min="1"
+              />
+            </div>
+            <div className="flex flex-col border-b border-b-white/25 px-5 py-[15px]">
+              <p className="font-space-mono text-[15px] font-bold">
+                Time in seconds or utxo confirmations
+              </p>
+              <input
+                title="Time elapsed in seconds or number of confirmed blocks"
+                onChange={handleNSequenceTimeChange}
+                value={nSequenceTime}
+                className="h-[25px] flex-grow border-none bg-transparent font-space-mono text-[15px] [appearance:textfield] placeholder:text-white/50 focus:outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                placeholder="60..."
+                type="number"
+                min="1"
+              />
+            </div>
           </div>
         </div>
         <div
@@ -495,7 +527,7 @@ const OpRunner = ({
                     >
                       <div
                         className={clsx(
-                          'w-full rounded-[3px] border border-none bg-black/20 px-3 py-1 text-center font-space-mono text-[13px]',
+                          'w-full truncate text-ellipsis rounded-[3px] border border-none bg-black/20 px-3 py-1 text-center font-space-mono text-[13px]',
                           {
                             'text-[#EF960B]':
                               stack.operation.tokenType === 'conditional',
