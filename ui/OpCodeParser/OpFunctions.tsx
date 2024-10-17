@@ -145,12 +145,6 @@ export const opFunctions: { [key: string]: Function } = {
         error: 'OP_CHECKSEQUENCEVERIFY: requires 1 item on the stack',
       }
     }
-    if (isNaN(height)) {
-      return {
-        value: null,
-        error: 'OP_CHECKSEQUENCEVERIFY: height should be a valid number',
-      }
-    }
     if (isNaN(nSequenceTime)) {
       return {
         value: null,
@@ -158,7 +152,6 @@ export const opFunctions: { [key: string]: Function } = {
       }
     }
     const a = parseInt(stack[stack?.length - 1] as string)
-    const nLocktime = height
     const nSequence = nSequenceTime
     if (a > nSequence) {
       return {
