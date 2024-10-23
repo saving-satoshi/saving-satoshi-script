@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useTranslations, useLang } from 'hooks'
 import { useSearchParams } from 'next/navigation'
-import { LessonInfo, HeroTitle, Icon } from 'ui'
+import { HeroTitle, Icon } from 'ui'
 
 export const LessonFallback = () => {
   const lang = useLang()
