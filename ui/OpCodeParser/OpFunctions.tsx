@@ -569,7 +569,7 @@ export const opFunctions: { [key: string]: Function } = {
 interface OpToken {
   operation: TokenTypes
   opcode: string
-  color: string
+  hexValue: string
 }
 
 export const OpCodeTypes = {
@@ -621,6 +621,60 @@ export const OpCodeTypes = {
   OP_DROP: 'stack',
   OP_VERIFY: 'stack',
   OP_NOP: 'stack',
+}
+
+export const OpCodeHex = {
+  INITIAL_STACK: 'initial-stack',
+  OP_TRUE: '51',
+  OP_FALSE: '00',
+  OP_0: '00',
+  OP_1: '51',
+  OP_1NEGATE: '4f',
+  OP_2: '52',
+  OP_3: '53',
+  OP_4: '54',
+  OP_5: '55',
+  OP_6: '56',
+  OP_7: '57',
+  OP_8: '58',
+  OP_9: '59',
+  OP_10: '5a',
+  OP_11: '5b',
+  OP_12: '5c',
+  OP_13: '5d',
+  OP_14: '5e',
+  OP_15: '5f',
+  OP_16: '60',
+
+  OP_ADD: '93',
+
+  OP_PUSH: 'data-push',
+  OP_PUSHDATA1: '4c',
+  OP_PUSHDATA2: '4d',
+  OP_PUSHDATA4: '4e',
+
+  OP_CHECKLOCKTIMEVERIFY: 'b1',
+  OP_CHECKSEQUENCEVERIFY: 'b2',
+
+  OP_IF: '63',
+  OP_ELSE: '67',
+  OP_ENDIF: '68',
+
+  OP_RIPEMD160: 'a6',
+  OP_SHA256: 'a8',
+  OP_HASH160: 'a9',
+  OP_HASH256: 'aa',
+  OP_CHECKSIG: 'ac',
+  OP_CHECKMULTISIG: 'ae',
+
+  OP_EQUAL: '87',
+  OP_EQUALVERIFY: '88',
+
+  OP_SIZE: '82',
+  OP_DUP: '76',
+  OP_DROP: '75',
+  OP_VERIFY: '69',
+  OP_NOP: '61',
 }
 
 const disabledOpCodes = ['INITIAL_STACK']

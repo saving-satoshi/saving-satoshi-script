@@ -8,6 +8,7 @@ import { Lesson, LessonTabs } from 'ui'
 import OpRunner from './OpRunner'
 import clsx from 'clsx'
 import { useSearchParams } from 'next/navigation'
+import { hexToScript } from 'lib/hexToScript'
 
 const tabData = [
   {
@@ -40,8 +41,11 @@ export default function OpCodeParser({
 
   useEffect(() => {
     const scriptParam = params.get('script')
+    const scriptParamHex = params.get('script-hex')
     if (scriptParam) {
       setDecodedScript(decodeURIComponent(scriptParam).split(' '))
+    } else if (scriptParamHex) {
+      setDecodedScript(hexToScript(scriptParamHex))
     } else {
       setDecodedScript([])
     }
