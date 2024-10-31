@@ -12,7 +12,9 @@ export const LessonFallback = () => {
   return (
     <div className="flex flex-col gap-5 font-nunito md:pt-5">
       <div className="flex flex-row gap-[15px]">
-        <HeroTitle />
+        <Link href="/">
+          <HeroTitle />
+        </Link>
         <Icon icon="cross" className="flex items-center" />
         <h1 className="text-[24px] font-bold">{t('homepage.title')}</h1>
       </div>
@@ -20,9 +22,30 @@ export const LessonFallback = () => {
         <p>{t('homepage.welcome')}</p>
         <p className="mt-6">{t('homepage.examples_list.heading')}</p>
         <ul className="ml-2.5 list-inside list-disc">
-          <li>{t('homepage.examples_list.basic')}</li>
-          <li>{t('homepage.examples_list.multi_sig')}</li>
-          <li>{t('homepage.examples_list.timelock')}</li>
+          <li>
+            <Link
+              href="/?script=OP_1%20OP_2%20OP_ADD%20OP_EQUAL"
+              className="underline"
+            >
+              {t('homepage.examples_list.basic')}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/?script=OP_2%20OP_PUSH%20PUBKEY%28YOU%29%20OP_PUSH%20PUBKEY%28ME%29%20OP_2%20OP_0"
+              className="underline"
+            >
+              {t('homepage.examples_list.multi_sig')}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/?script=OP_PUSH%20600000%20OP_CHECKLOCKTIMEVERIFY%20OP_DROP%20OP_TRUE"
+              className="underline"
+            >
+              {t('homepage.examples_list.timelock')}
+            </Link>
+          </li>
         </ul>
         <p className="mt-6">{t('homepage.links_list.heading')}</p>
         <ul className="ml-2.5 list-inside list-disc">

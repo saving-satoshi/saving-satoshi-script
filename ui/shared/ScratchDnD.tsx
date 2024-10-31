@@ -237,27 +237,59 @@ export default class ScratchDnd extends Component<
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: ScratchDndProps) {
+    // Check if the incoming items or prePopulate props have changed
     if (
-      prevProps.state !== this.state.dynamicState ||
-      prevProps.opPushValues !== this.state.opPushValues
+      prevProps.items !== this.props.items ||
+      prevProps.prePopulate !== this.props.prePopulate
     ) {
-      const updatedItems = Object.values(this.state.dynamicState).flatMap(
-        (arr) => arr.map((item) => item)
-      )
+      // Reset the state with the new items
+      const newItems = this.props.items || []
+      const newOpPushValues: { [key: string]: string } = {}
+      const newInitialStateItems: ItemType[] = []
 
-      const processedItems = updatedItems.flatMap((item) => {
-        if (item.content === 'OP_PUSH') {
-          const pushValueContent = this.state.opPushValues[item.id] || ''
-          return [item.content, pushValueContent]
-        } else {
-          return [item.content]
+      for (let i = 0; i < newItems.length; i++) {
+        const item = newItems[i]
+        const id = uuid()
+
+        if (item === 'OP_PUSH' && newItems[i + 1]) {
+          newOpPushValues[id] = newItems[i + 1].toUpperCase()
+          i++ // Skip the next item
         }
-      })
 
-      if (this.props.onItemsUpdate) {
-        this.props.onItemsUpdate(processedItems)
+        newInitialStateItems.push({
+          id,
+          index: newInitialStateItems.length,
+          content: item,
+          category: '', // Adjust the category if needed
+        })
       }
+
+      // Update state with the new items and opPushValues
+      this.setState({
+        dynamicState: {
+          [uuid()]: newInitialStateItems,
+        },
+        opPushValues: newOpPushValues,
+      })
+    }
+
+    // Existing logic for handling updates to dynamicState and opPushValues
+    const updatedItems = Object.values(this.state.dynamicState).flatMap((arr) =>
+      arr.map((item) => item)
+    )
+
+    const processedItems = updatedItems.flatMap((item) => {
+      if (item.content === 'OP_PUSH') {
+        const pushValueContent = this.state.opPushValues[item.id] || ''
+        return [item.content, pushValueContent]
+      } else {
+        return [item.content]
+      }
+    })
+
+    if (this.props.onItemsUpdate) {
+      this.props.onItemsUpdate(processedItems)
     }
   }
 
@@ -295,10 +327,7 @@ export default class ScratchDnd extends Component<
                             <div
                               id={item.id}
                               className={clsx(
-                                'relative mr-[5px] flex h-[25px] select-none items-center rounded-sm bg-black/30 text-[13px] font-normal text-white',
-                                {
-                                  'pointer-events-none': this.props.prePopulate,
-                                }
+                                'relative mr-[5px] flex h-[25px] select-none items-center rounded-sm bg-black/30 text-[13px] font-normal text-white'
                               )}
                               ref={provided.innerRef}
                               {...provided.draggableProps}
@@ -382,11 +411,7 @@ export default class ScratchDnd extends Component<
                             <div
                               id={item.id}
                               className={clsx(
-                                'relative mr-[5px] flex h-[25px] select-none items-center rounded-sm bg-black/30 text-[13px] font-normal text-white',
-                                {
-                                  'pointer-events-none text-white/25':
-                                    this.props.prePopulate,
-                                }
+                                'relative mr-[5px] flex h-[25px] select-none items-center rounded-sm bg-black/30 text-[13px] font-normal text-white'
                               )}
                               ref={provided.innerRef}
                               {...provided.draggableProps}
@@ -404,11 +429,7 @@ export default class ScratchDnd extends Component<
                                     key={item.id}
                                     id={item.id}
                                     className={clsx(
-                                      'pointer-events-none mx-1 w-auto cursor-text rounded-sm bg-white/20 px-1 text-left placeholder:text-white/50',
-                                      {
-                                        'opacity-50 placeholder:text-white/25':
-                                          this.props.prePopulate,
-                                      }
+                                      'pointer-events-none mx-1 w-auto cursor-text rounded-sm bg-white/20 px-1 text-left placeholder:text-white/50'
                                     )}
                                     type="text"
                                     placeholder="PUSH_DATA"
@@ -421,11 +442,7 @@ export default class ScratchDnd extends Component<
                               <div className="clone">
                                 <div
                                   className={clsx(
-                                    'relative mr-[5px] flex h-[25px] select-none items-center rounded-sm bg-black/30 text-[13px] font-normal text-white',
-                                    {
-                                      'bg-black30/25 pointer-events-none text-white/25':
-                                        this.props.prePopulate,
-                                    }
+                                    'relative mr-[5px] flex h-[25px] select-none items-center rounded-sm bg-black/30 text-[13px] font-normal text-white'
                                   )}
                                 >
                                   <span
@@ -439,11 +456,7 @@ export default class ScratchDnd extends Component<
                                         key={item.id}
                                         id={item.id}
                                         className={clsx(
-                                          'pointer-events-none mx-1 h-5 w-auto cursor-text rounded-sm bg-white/20 px-1 text-left placeholder:text-white/50',
-                                          {
-                                            'opacity-50':
-                                              this.props.prePopulate,
-                                          }
+                                          'pointer-events-none mx-1 h-5 w-auto cursor-text rounded-sm bg-white/20 px-1 text-left placeholder:text-white/50'
                                         )}
                                         type="text"
                                         placeholder="PUSH_DATA"

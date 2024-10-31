@@ -5,6 +5,7 @@ import { TokenTypes, LessonDirection, LessonView } from './enums'
 export interface OpRunnerTypes {
   success: boolean | SuccessNumbers
   setSuccess: Dispatch<SetStateAction<number | boolean>>
+  answerScript?: string[]
   children?: React.ReactNode
   readOnly?: boolean
   prePopulate?: boolean

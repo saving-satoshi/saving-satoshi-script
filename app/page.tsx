@@ -9,13 +9,15 @@ export default function Home() {
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-gradient-to-tl from-[#486c72] to-[#516644]">
-      <OpCodeParser success={success} setSuccess={setSuccess}>
-        <LessonInfo>
-          <Suspense fallback={<LessonFallback />}>
-            <LessonCopy />
-          </Suspense>
-        </LessonInfo>
-      </OpCodeParser>
+      <Suspense fallback={<LessonFallback />}>
+        <OpCodeParser success={success} setSuccess={setSuccess}>
+          <LessonInfo>
+            <Suspense fallback={<LessonFallback />}>
+              <LessonCopy />
+            </Suspense>
+          </LessonInfo>
+        </OpCodeParser>
+      </Suspense>
     </div>
   )
 }

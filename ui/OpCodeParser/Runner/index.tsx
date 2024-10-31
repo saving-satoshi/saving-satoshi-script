@@ -2,8 +2,8 @@
 
 import clsx from 'clsx'
 import { useMediaQuery, useTranslations } from 'hooks'
-import { useRef, useState, useEffect } from 'react'
-import { LessonView, SuccessNumbers, HasherState } from 'types'
+import { useState, useEffect } from 'react'
+import { LessonView, SuccessNumbers } from 'types'
 import { useLessonContext, StatusBar, Loader, Icon, Button } from 'ui'
 import { sleep } from 'utils'
 

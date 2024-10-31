@@ -11,7 +11,6 @@ import { useHorizontalScroll, useLang, useTranslations } from 'hooks'
 import { sleep } from 'utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import OpCodeRunner from './Runner'
-import { Icon, Loader, StatusBar } from 'ui'
 
 const arrowLineStyles = {
   startMarker: true,
@@ -141,12 +140,11 @@ const getRelationsTargetForOperations = (operation: string): Number[] => {
 const OpRunner = ({
   success,
   setSuccess,
-  readOnly,
+  answerScript,
   prePopulate,
   advancedChallenge,
   initialHeight,
   initialStackSuccess,
-  nextStepMessage,
 }: Omit<OpRunnerTypes, 'children'>) => {
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -411,6 +409,7 @@ const OpRunner = ({
           )}
         >
           <ScratchDnD
+            items={prePopulate ? answerScript : undefined}
             prePopulate={prePopulate || step === 2}
             onItemsUpdate={handleDnDScript}
           />

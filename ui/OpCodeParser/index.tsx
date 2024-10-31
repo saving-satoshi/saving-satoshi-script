@@ -7,6 +7,7 @@ import { LessonDirection, OpRunnerTypes, LessonView } from 'types'
 import { Lesson, LessonTabs } from 'ui'
 import OpRunner from './OpRunner'
 import clsx from 'clsx'
+import { useSearchParams } from 'next/navigation'
 
 const tabData = [
   {
@@ -25,7 +26,6 @@ const tabData = [
 
 export default function OpCodeParser({
   children,
-  prePopulate,
   readOnly,
   success,
   setSuccess,
@@ -35,6 +35,17 @@ export default function OpCodeParser({
   nextStepMessage,
 }: OpRunnerTypes) {
   const [activeView, setActiveView] = useState(LessonView.Info)
+  const params = useSearchParams()
+  const [decodedScript, setDecodedScript] = useState<string[]>([])
+
+  useEffect(() => {
+    const scriptParam = params.get('script')
+    if (scriptParam) {
+      setDecodedScript(decodeURIComponent(scriptParam).split(' '))
+    } else {
+      setDecodedScript([])
+    }
+  }, [params])
 
   useDynamicHeight()
   const isSmallScreen = useMediaQuery({ width: 767 })
@@ -63,7 +74,8 @@ export default function OpCodeParser({
         <ArrowsProvider>
           <OpRunner
             readOnly={readOnly}
-            prePopulate={prePopulate}
+            answerScript={decodedScript}
+            prePopulate={decodedScript.length > 0}
             initialStackSuccess={initialStackSuccess}
             success={success}
             initialHeight={initialHeight}
