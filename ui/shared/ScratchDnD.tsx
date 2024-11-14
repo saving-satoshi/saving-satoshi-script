@@ -348,7 +348,7 @@ export default class ScratchDnd extends Component<
                                   <input
                                     key={item.id}
                                     id={item.id}
-                                    className="mx-1 h-5 w-auto grow bg-white/20 px-1 text-white placeholder:text-white/50"
+                                    className="ml-2 mr-1 h-5 w-auto grow bg-white/20 px-1 text-white placeholder:text-white/50"
                                     placeholder="PUSH_DATA"
                                     type="text"
                                     value={
@@ -429,7 +429,7 @@ export default class ScratchDnd extends Component<
                                     key={item.id}
                                     id={item.id}
                                     className={clsx(
-                                      'pointer-events-none mx-1 w-auto cursor-text rounded-sm bg-white/20 px-1 text-left placeholder:text-white/50'
+                                      'pointer-events-none ml-2 mr-1 w-auto cursor-text rounded-sm bg-white/20 px-1 text-left placeholder:text-white/50'
                                     )}
                                     type="text"
                                     placeholder="PUSH_DATA"
@@ -456,7 +456,7 @@ export default class ScratchDnd extends Component<
                                         key={item.id}
                                         id={item.id}
                                         className={clsx(
-                                          'pointer-events-none mx-1 h-5 w-auto cursor-text rounded-sm bg-white/20 px-1 text-left placeholder:text-white/50'
+                                          'pointer-events-none ml-2 mr-1 h-5 w-auto cursor-text rounded-sm bg-white/20 px-1 text-left placeholder:text-white/50'
                                         )}
                                         type="text"
                                         placeholder="PUSH_DATA"

@@ -436,7 +436,7 @@ const OpRunner = ({
             />
           </div>
           <div className="grid grid-cols-2">
-            <div className="flex flex-col border-b border-l border-white/25 px-5 py-[15px]">
+            <div className="flex flex-col border-b border-white/25 px-5 py-[15px]">
               <p className="font-space-mono text-[15px] font-bold">
                 Next block height
               </p>
