@@ -261,6 +261,24 @@ class LanguageExecutor {
         break
     }
 
+    if (this.stack.length > 1 && this.tokens.length - 1 === this.currentIndex) {
+      error = {
+        type: 'unknown',
+        message:
+          'STACK_ERR: Stack should finish with only one item on the stack',
+      }
+    }
+
+    if (
+      this.conditionalState.length !== 0 &&
+      this.tokens.length - 1 === this.currentIndex
+    ) {
+      error = {
+        type: 'unknown',
+        message: 'SCRIPT_ERR: Unbalanced conditional',
+      }
+    }
+
     return {
       stack: [...this.stack],
       operation: {

@@ -1,7 +1,5 @@
-'use client'
-
 import clsx from 'clsx'
-import { useMediaQuery, useTranslations } from 'hooks'
+import { useTranslations } from 'hooks'
 import { useState, useEffect } from 'react'
 import { LessonView, SuccessNumbers } from 'types'
 import { useLessonContext, StatusBar, Loader, Icon, Button } from 'ui'
@@ -24,19 +22,18 @@ export default function OpCodeRunner({
   handleTryAgain,
   success,
   errorMessage,
-  nextStepMessage,
 }: OpCodeRunnerType) {
   const t = useTranslations(lang)
-  const { activeView } = useLessonContext()
+  const { activeView, setActiveView } = useLessonContext()
   const isActive = activeView !== LessonView.Info
   const [hasherState, setHasherState] = useState<
     SuccessNumbers | boolean | null
   >(0)
-  const isSmallScreen = useMediaQuery({ width: 767 })
 
   const [clicked, setClicked] = useState<boolean>(false)
 
   const handleRunClick = () => {
+    setActiveView(LessonView.Execute)
     handleRun()
   }
 

@@ -510,6 +510,7 @@ const OpRunner = ({
                 if (stack?.error) {
                   error = stack.error?.message
                 }
+                //console.log(stateHistory)
                 return (
                   stack.negate === 0 &&
                   !startedTyping && (
