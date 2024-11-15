@@ -30,7 +30,7 @@ export default function LessonInfo({
   return (
     <div
       className={clsx(
-        'flex w-full max-w-[840px] grow flex-col items-start gap-1 overflow-y-auto px-4 py-6 font-nunito text-white',
+        'flex w-full grow flex-col items-start gap-1 overflow-y-auto px-4 py-6 font-nunito text-white md:max-w-[50vw]',
         {
           'hidden md:flex': !isActive,
           flex: isActive,

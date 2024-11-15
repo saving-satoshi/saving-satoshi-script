@@ -279,6 +279,13 @@ class LanguageExecutor {
       }
     }
 
+    if (this.tokens.length === 1) {
+      error = {
+        type: 'unknown',
+        message: 'SCRIPT_ERR: No script provided',
+      }
+    }
+
     return {
       stack: [...this.stack],
       operation: {
