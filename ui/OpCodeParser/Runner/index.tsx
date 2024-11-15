@@ -53,6 +53,10 @@ export default function OpCodeRunner({
     setHasherState(success)
   }, [success])
 
+  useEffect(() => {
+    !isSmallScreen && setActiveView(LessonView.Info)
+  }, [isSmallScreen])
+
   return (
     <div className="flex">
       <div
