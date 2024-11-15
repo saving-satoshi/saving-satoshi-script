@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { useTranslations } from 'hooks'
+import { useDynamicHeight, useMediaQuery, useTranslations } from 'hooks'
 import { useState, useEffect } from 'react'
 import { LessonView, SuccessNumbers } from 'types'
 import { useLessonContext, StatusBar, Loader, Icon, Button } from 'ui'
@@ -29,11 +29,11 @@ export default function OpCodeRunner({
   const [hasherState, setHasherState] = useState<
     SuccessNumbers | boolean | null
   >(0)
-
   const [clicked, setClicked] = useState<boolean>(false)
+  const isSmallScreen = useMediaQuery({ width: 767 })
 
   const handleRunClick = () => {
-    setActiveView(LessonView.Execute)
+    isSmallScreen && setActiveView(LessonView.Execute)
     handleRun()
   }
 
