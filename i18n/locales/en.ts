@@ -37,6 +37,10 @@ const translations = {
        <br/> <br/>
        Similarly, for your change output, it should require your public key to be spent.
       `,
+      initial_stack_one:
+        'Laszlo spends output 0 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(LASZLO)</span>',
+      initial_stack_two:
+        'You spend output 1 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(YOU)</span>',
     },
     CH10OAC4: {
       title:
@@ -45,6 +49,8 @@ const translations = {
       tips: `
       For this transaction, you'll need to set up a system where both you and Laszlo have to approve any spending. This means two public keys (yours and Laszlo's) will be included, and both signatures are required to unlock the funds.
       `,
+      initial_stack_one:
+        'You and Laszlo want to work together in the future to spend output 0 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">0 SIG(LASZLO) SIG(YOU)</span>',
     },
     CH10UTS1: {
       title:
@@ -55,12 +61,18 @@ const translations = {
  <br/>
  Output 0 is spent by you with SIG(YOU).
     `,
+      initial_stack_one:
+        'Output 0 is spent by you with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(YOU)</span>',
     },
     CH10UTS3: {
       title:
         'Chapter 10, <span className="whitespace-nowrap">Challenge 2</span>',
       welcome: `Welcome! In this challenge, you'll create a revocable transaction, allowing Laszlo to spend the output if he also has a special revocation key you generate. Your task is to add the necessary condition and then send the transaction to Laszlo for his signature.`,
       tips: `You’ll need to add an additional condition that gives Laszlo control of the output, but only if he also possesses the revocation key.`,
+      initial_stack_one:
+        'You spend output 0 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(YOU) 1</span>',
+      initial_stack_two:
+        'Laszlo spends output 1 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">0 SIG(REVOCATION_YOU_1) SIG(LASZLO) 0</span>',
     },
 
     CH10UTS5: {
@@ -71,6 +83,10 @@ const translations = {
       <br /> <br />
       This creates a safeguard for both of you, protecting the funds while also allowing Laszlo time to respond if the transaction is broadcast.
       `,
+      initial_stack_one:
+        'You spend output 0 after 700 blocks with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(YOU) 1</span>',
+      initial_stack_two:
+        'Laszlo spends output 1 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">0 SIG(REVOCATION_YOU_1) SIG(LASZLO) 0</span>',
     },
     CH10MAP2: {
       title:
@@ -80,6 +96,10 @@ const translations = {
     <br /> <br />
     Ensure Laszlo can spend his output immediately, while you’ll have to wait 700 blocks unless you revoke the transaction.
     `,
+      initial_stack_one:
+        'You spend output 0 after 700 blocks with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(YOU) 1</span> or Laszlo can spend it with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">0 SIG(REVOCATION_YOU_2) SIG(LASZLO) 0</span>',
+      initial_stack_two:
+        'Laszlo spends output 1 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(LASZLO)</span>',
     },
     CH10MAP5: {
       title:
@@ -89,8 +109,17 @@ const translations = {
     <br /> <br />
     Ensure Laszlo can spend his output immediately, while you’ll have to wait 700 blocks unless you revoke the transaction.
     `,
+      initial_stack_one:
+        'Laszlo spends output 0 after 700 blocks with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(LASZLO) 1</span> or Laszlo can spend it with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">0 SIG(REVOCATION_LASZlO_1) SIG(YOU) 0</span>',
+      initial_stack_two:
+        'You spend output 1 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(YOU)</span>',
     },
-    CH10MAP7: {
+    CH10MAP6: {
+      title: `Chapter 10, <span className="whitespace-nowrap">Challenge 2</span>`,
+      welcome: 'Welcome! The challenge has already been completed.',
+      tips: 'No tips needed for this challenge',
+    },
+    CH10MAP8: {
       title:
         'Chapter 10, <span className="whitespace-nowrap">Challenge 3</span>',
       welcome: `Welcome! Time for another beer! You and Laszlo have your asymmetrical transactions in place, and now it’s time to make another payment of 1,000 satoshis. Update the amounts, run the revocation protocol, and enjoy another round.`,
@@ -98,6 +127,10 @@ const translations = {
     <br /> <br />
    Remember to exchange revocation keys to ensure previous transactions can’t be broadcasted.
     `,
+      initial_stack_one:
+        'You spend output 0 after 700 blocks with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(YOU) 1</span> or Laszlo can spend it with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">0 SIG(REVOCATION_YOU_3) SIG(LASZLO) 0</span>',
+      initial_stack_two:
+        'Laszlo spends output 1 with <span className="rounded-sm px-1.5 py-1 h-[28px] font-mono bg-[#0000004D] m-0.5 text-base whitespace-nowrap">SIG(LASZLO)</span>',
     },
   },
   shared: {

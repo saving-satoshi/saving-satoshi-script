@@ -124,6 +124,12 @@ export default function LessonCopy() {
   const t = useTranslations(lang)
   const lesson = params.get('lesson')
 
+  const fauxLessonOutputRegex = /^CH10(OAC1|MAP6)/
+
+  const dualLessonOutputMatchRegex = /^CH10(OAC2|UTS3|UTS5|MAP2|MAP5|MAP8)$/
+  const dualOutputs = lesson && dualLessonOutputMatchRegex.test(lesson)
+  const fauxOutputs = lesson && fauxLessonOutputRegex.test(lesson)
+
   return (
     <>
       {lesson ? (
@@ -138,6 +144,14 @@ export default function LessonCopy() {
           <div className="text-[22px] font-medium opacity-80">
             <p>{t(`lesson.${lesson}.welcome`)}</p>
             <p className="mt-6">{t(`lesson.${lesson}.tips`)}</p>
+            <ul className="ml-4 mt-6 list-disc font-nunito text-lg">
+              {!fauxOutputs && (
+                <li>{t(`lesson.${lesson}.initial_stack_one`)}</li>
+              )}
+              {dualOutputs && (
+                <li>{t(`lesson.${lesson}.initial_stack_two`)}</li>
+              )}
+            </ul>
           </div>
         </div>
       ) : (
