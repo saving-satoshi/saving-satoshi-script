@@ -648,6 +648,7 @@ export const OpCodeHex = {
 
   OP_ADD: '93',
 
+  // hex values from 0-75 are all just pushing that length of data to the stack
   OP_PUSH: 'data-push',
   OP_PUSHDATA1: '4c',
   OP_PUSHDATA2: '4d',
