@@ -180,6 +180,18 @@ export default class ScratchDnd extends Component<
     )
   }
 
+  handleItemClick = (item: ItemType) => {
+    const newItem = { ...item, id: uuid() }
+    const listId = Object.keys(this.state.dynamicState)[0]
+
+    this.setState((prevState) => ({
+      dynamicState: {
+        ...prevState.dynamicState,
+        [listId]: [...prevState.dynamicState[listId], newItem],
+      },
+    }))
+  }
+
   onDragEnd = (result: DropResult) => {
     const { source, destination } = result
 
@@ -417,6 +429,7 @@ export default class ScratchDnd extends Component<
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                               style={provided.draggableProps.style}
+                              onClick={() => this.handleItemClick(item)}
                             >
                               <span
                                 className={clsx('flex items-center', {
