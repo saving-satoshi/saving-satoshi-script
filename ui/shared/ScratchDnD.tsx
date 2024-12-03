@@ -1,6 +1,6 @@
 'use client'
 
-import { Component, useState, useEffect } from 'react'
+import { Component } from 'react'
 import {
   DragDropContext,
   Draggable,
@@ -10,8 +10,8 @@ import {
 } from 'react-beautiful-dnd'
 import { uuid } from 'utils'
 import clsx from 'clsx'
-import { Icon } from 'ui'
 import { OpCodeTypes } from '../OpCodeParser/OpFunctions'
+import { hexToScript } from 'lib/hexToScript'
 
 type ItemType = {
   id: string
@@ -178,6 +178,58 @@ export default class ScratchDnd extends Component<
         input.setSelectionRange(caretPosition, caretPosition)
       }
     )
+  }
+
+  handlePasteFromClipboard = async () => {
+    try {
+      const text = await navigator.clipboard.readText()
+
+      const hexRegex = /^(0x)?[0-9a-fA-F]+$/
+      const newItems =
+        (hexRegex.test(text) && hexToScript(text)) || text.split(' ')
+      const newOpPushValues: { [key: string]: string } = {}
+      const updatedItems: ItemType[] = []
+
+      //if no items are opcodes break as the top item of the clipboard is wrong
+      if (
+        newItems.filter((value) => Object.keys(OpCodeTypes).includes(value))
+          .length === 0
+      ) {
+        throw new Error('clipboard does not contain opcodes')
+      }
+
+      for (let i = 0; i < newItems.length; i++) {
+        const item = newItems[i]
+        const id = uuid()
+
+        if (item === 'OP_PUSH' && newItems[i + 1]) {
+          newOpPushValues[id] = newItems[i + 1].toUpperCase()
+          i++
+        }
+
+        updatedItems.push({
+          id,
+          index: updatedItems.length,
+          content: item,
+          category: OpCodeTypes[item],
+        })
+      }
+
+      const listId = Object.keys(this.state.dynamicState)[0] || uuid()
+
+      this.setState((prevState) => ({
+        dynamicState: {
+          ...prevState.dynamicState,
+          [listId]: [...prevState.dynamicState[listId], ...updatedItems],
+        },
+        opPushValues: {
+          ...prevState.opPushValues,
+          ...newOpPushValues,
+        },
+      }))
+    } catch (error) {
+      console.error('Failed to read clipboard:', error)
+    }
   }
 
   handleItemClick = (item: ItemType) => {
@@ -491,6 +543,14 @@ export default class ScratchDnd extends Component<
             </div>
           )}
         </Droppable>
+        <div className="flex justify-end bg-black/10">
+          <button
+            className="false m-2 inline-block max-w-[max-content] justify-center rounded-[3px] bg-white px-12 px-2.5 py-1 text-center font-nunito text-base font-bold  text-back transition duration-150 ease-in-out hover:bg-white/75"
+            onClick={() => this.handlePasteFromClipboard()}
+          >
+            Paste From Clipboard
+          </button>
+        </div>
       </DragDropContext>
     )
   }
