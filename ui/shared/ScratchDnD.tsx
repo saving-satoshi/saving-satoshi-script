@@ -357,6 +357,13 @@ export default class ScratchDnd extends Component<
     }
   }
 
+  handleCopyScript = () => {
+    const script = this.props?.items?.join(' ')
+    if (!script) return
+
+    navigator.clipboard.writeText(script)
+  }
+
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
@@ -364,7 +371,11 @@ export default class ScratchDnd extends Component<
           return (
             <div key={i} className="border-b border-white/25 px-5 pt-[15px]">
               <p className="font-space-mono text-[15px] font-bold">
-                Your script
+                Your script{' '}
+                <span onClick={() => this.handleCopyScript()}>
+                  {' '}
+                  - Click here to copy to clipboard
+                </span>
               </p>
               <Droppable key={list} droppableId={list} direction="horizontal">
                 {(provided, snapshot) => (
