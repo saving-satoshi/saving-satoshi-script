@@ -32,7 +32,7 @@ export const LessonFallback = () => {
           </li>
           <li>
             <Link
-              href="/?script=OP_2%20OP_PUSH%20PUBKEY%28YOU%29%20OP_PUSH%20PUBKEY%28ME%29%20OP_2%20OP_0"
+              href="/?script=OP_2%20OP_PUSH%20PUBKEY%28YOU%29%20OP_PUSH%20PUBKEY%28ME%29%20OP_2%20OP_CHECKMULTISIG"
               className="underline"
             >
               {t('homepage.examples_list.multi_sig')}
