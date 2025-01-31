@@ -114,7 +114,7 @@ export default function OpCodeRunner({
           success={success}
           hints
         />
-        {hasherState === 5 && (
+        {hasherState !== 0 && (
           <Button classes="whitespace-nowrap h-full" onClick={handleCopyClick}>
             {clicked ? 'Copied' : 'Copy'}
           </Button>
